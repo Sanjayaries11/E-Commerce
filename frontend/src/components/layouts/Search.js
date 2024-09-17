@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Search() {
 
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();  //navigate to desire url you want
+    const location = useLocation();  //to get the current URL
     const [Keyword, setKeyword] = useState("");
 
     const searchHandler = (e) => {
@@ -12,6 +13,14 @@ export default function Search() {
         navigate(`/search/${Keyword}`);
     }
 
+    const clearKeyword = () => {
+        setKeyword("");
+    }
+    useEffect(() => {
+        if (location.pathname == "/") {
+            clearKeyword();
+        }
+    }, [location]) //location can change anytime if you want whenever had "/" use dependency for useEffect
 
     return (
         <form onSubmit={searchHandler}>
@@ -21,6 +30,7 @@ export default function Search() {
                     id="search_field"
                     className="form-control"
                     placeholder="Enter Product Name ..."
+                    autoComplete="off"
                     value={Keyword}
                     onChange={(e) => { setKeyword(e.target.value) }}
                 />

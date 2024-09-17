@@ -1,14 +1,15 @@
 import React from 'react';
 import Search from './Search';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   return (
     <nav className="navbar row">
-      <d iv className="col-12 col-md-3">
+      <div className="col-12 col-md-3">
         <div className="navbar-brand">
-          <img width="150px" src="/images/logo.png" alt='SKcart logo' />
+          <Link to='/'><img width="150px" src="/images/logo.png" alt='SKcart logo' /></Link>
         </div>
-      </d>
+      </div>
 
       <div className="col-12 col-md-6 mt-2 mt-md-0">
         <Search />
