@@ -106,18 +106,18 @@ export default function ProductSearch() {
                                 <div className="mt-5">
                                     <h3 className="mb-3">Ratings</h3>
                                     <ul className="pl-0">
-                                        {[5, 4,3, 2, 1].map(star =>
+                                        {[5, 4, 3, 2, 1].map(star =>
                                             <li style={{ cursor: "pointer", listStyleType: "none" }} key={star}
                                                 onClick={() => {
                                                     setRating(star)
                                                 }}>
-                                                    <div className="rating-outer">
-                                                        <div className="rating-inner"
-                                                         style={{width: `${star * 20}%`}}>
+                                                <div className="rating-outer">
+                                                    <div className="rating-inner"
+                                                        style={{ width: `${star * 20}%` }}>
 
-                                                        </div>
                                                     </div>
-                                                </li>
+                                                </div>
+                                            </li>
                                         )}
 
                                     </ul>
