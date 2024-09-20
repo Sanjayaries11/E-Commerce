@@ -19,7 +19,21 @@ export default function ProductSearch() {
     const { products, loading, error, productsCount, resPerPage } = useSelector((state) => state.productsState)
     const [currentPage, setCurrentPage] = useState(1);
     const { keyword } = useParams();
-    const [price, setPrice] = useState([1,1000]);   // 1=lowest value,1000=greatest value
+    const [price, setPrice] = useState([1, 1000]);   // 1=lowest value,1000=greatest value
+    const [category, setCategory] = useState(null)
+    const [rating, setRating] = useState(0)
+    const categories = ['Electronics',
+        'Mobile Phones',
+        'Laptops',
+        'Accessories',
+        'Headphones',
+        'Food',
+        'Books',
+        'Clothes/Shoes',
+        'Beauty/Health',
+        'Sports',
+        'Outdoor',
+        'Home']
 
     const setCurrentPageNo = (pageNo) => {
         setCurrentPage(pageNo);
@@ -31,13 +45,13 @@ export default function ProductSearch() {
                 position: "bottom-center"
             })
         }
-        dispatch(getProducts(keyword, price, currentPage))
-    }, [ error, dispatch, currentPage, keyword, price])
+        dispatch(getProducts(keyword, price, category, rating, currentPage))
+    }, [error, dispatch, currentPage, keyword, price, category, rating])
 
 
 
 
-    return (    
+    return (
         <Fragment>
             {loading ? <Loader /> :
                 <Fragment>
@@ -46,6 +60,7 @@ export default function ProductSearch() {
                     <section id="products" className="container mt-5">
                         <div className="row">
                             <div className="col-6 col-md-3 mb-5 mt-5">
+                                {/* price filter */}
                                 <div className="px-5">
                                     <Slider
                                         range={true}
@@ -71,6 +86,41 @@ export default function ProductSearch() {
                                             }
                                         }
                                     />
+                                </div>
+                                {/* category filter */}
+                                <hr className="my-5" />
+                                <div className="mt-5">
+                                    <h3 className="mb-3">Categories</h3>
+                                    <ul className="pl-0">
+                                        {categories.map(category =>
+                                            <li style={{ cursor: "pointer", listStyleType: "none" }} key={category}
+                                                onClick={() => {
+                                                    setCategory(category)
+                                                }}>{category}</li>
+                                        )}
+
+                                    </ul>
+                                </div>
+                                {/* ratings filter */}
+                                <hr className="my-5" />
+                                <div className="mt-5">
+                                    <h3 className="mb-3">Ratings</h3>
+                                    <ul className="pl-0">
+                                        {[5, 4,3, 2, 1].map(star =>
+                                            <li style={{ cursor: "pointer", listStyleType: "none" }} key={star}
+                                                onClick={() => {
+                                                    setRating(star)
+                                                }}>
+                                                    <div className="rating-outer">
+                                                        <div className="rating-inner"
+                                                         style={{width: `${star * 20}%`}}>
+
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                        )}
+
+                                    </ul>
                                 </div>
                             </div>
                             <div className="col-6 col-md-9">
