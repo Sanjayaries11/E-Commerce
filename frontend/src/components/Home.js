@@ -26,7 +26,7 @@ export default function Home() {
         position: "bottom-center"
       })
     }
-    dispatch(getProducts(null, null, null, null, currentPage))  //keyword,price,category,ratings intialy unknown
+    dispatch(getProducts(null, null, null, null, currentPage))  //keyword,price,category,ratings intially unknown
   }, [dispatch, error, currentPage])
 
 
@@ -60,7 +60,6 @@ export default function Home() {
                 linkClass={'page-link'}
               />
             </div> : null}
-
         </Fragment>
       }
     </Fragment>
