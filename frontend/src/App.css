@@ -116,10 +116,14 @@ nav {
 
 /* Footer */
 footer {
-  margin-top: 8rem;
+  margin-top: 15rem;
   color: grey;
   bottom: 0;
   width: 100%;
+  background: #fa9d23;
+}
+.text-dark {
+  color: #ffffff !important;
 }
 
 /* Ratings */
