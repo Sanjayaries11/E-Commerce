@@ -1,5 +1,5 @@
 import axios from "axios"
-import { loadUserFailure, loadUserRequest, loadUserSuccess, loginFailure, loginRequest, loginSuccess, registerFailure, registerRequest, registerSuccess } from "../slices/authSlice"
+import { loadUserFailure, loadUserRequest, loadUserSuccess, loginFailure, loginRequest, loginSuccess, logoutFailure, logoutSuccess, registerFailure, registerRequest, registerSuccess } from "../slices/authSlice"
 //for login
 export const login = (email, password) => async (dispatch) => {
     try {
@@ -40,3 +40,15 @@ export const loadUser = async (dispatch) => {
         dispatch(loadUserFailure(error.response.data.message))
     }
 }
+
+//for logout
+export const logout = () => async (dispatch) => {
+    try {
+        await axios.get(`api/v1/logout`);
+        dispatch(logoutSuccess())
+    } catch (error) {
+        dispatch(logoutFailure())
+    }
+}
+
+

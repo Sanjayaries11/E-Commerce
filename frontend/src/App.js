@@ -14,7 +14,7 @@ import store from './store';
 import { loadUser } from './actions/userAction';
 
 function App() {
-  
+
   useEffect(() => {
     store.dispatch(loadUser)
   }, [])

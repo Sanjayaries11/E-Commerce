@@ -4,7 +4,9 @@ const authSlice = createSlice({
     name: 'auth',
     initialState: {
         loading: false,
-        isAuthenticated: false
+        isAuthenticated: false,
+        error: null,
+        user: null,
     },
     reducers: {
         //for login reducers
@@ -29,7 +31,7 @@ const authSlice = createSlice({
             }
         },
 
-        
+
 
         //for register reducers
         registerRequest(state, action) {
@@ -54,27 +56,42 @@ const authSlice = createSlice({
         },
 
         //after login loading user data 
-        loadUserRequest (state, action) {
+        loadUserRequest(state, action) {
             return {
                 ...state,
                 isAuthenticated: false,
                 loading: true
             }
         },
-        loadUserSuccess (state, action) {
+        loadUserSuccess(state, action) {
             return {
                 loading: false,
-                isAuthenticated : true,
+                isAuthenticated: true,
                 user: action.payload.user
             }
         },
-        loadUserFailure (state, action) {
+        loadUserFailure(state, action) {
             return {
                 ...state,
                 loading: false,
                 error: action.payload
             }
-        } 
+        },
+
+        //for logout action
+        logoutSuccess(state, action) {
+            return {
+                loading: false,
+                isAuthenticated: false,
+            }
+        },
+        logoutFailure(state, action) {
+            return {
+                ...state,
+                error: action.payload
+            }
+
+        }
     }
 });
 
@@ -89,7 +106,9 @@ export const {
     registerFailure,
     loadUserRequest,
     loadUserSuccess,
-    loadUserFailure
+    loadUserFailure,
+    logoutSuccess,
+    logoutFailure
 } = actions;
 
 export default reducer;
