@@ -6,6 +6,7 @@ import { DropdownButton, Dropdown, Image } from 'react-bootstrap';
 import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 import { logout } from '../../actions/userAction';
+import { toast } from 'react-toastify';
 
 export default function Header() {
 
@@ -15,6 +16,11 @@ export default function Header() {
 
   const logoutHandler = () => {
     dispatch(logout());
+    toast("Logout Successfully", {
+      type:"success",
+      position:"bottom-center"
+    })
+    return;
   }
   return (
     <nav className="navbar row">

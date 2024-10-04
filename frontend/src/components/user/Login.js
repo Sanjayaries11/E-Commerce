@@ -21,6 +21,11 @@ export default function Login() {
     useEffect(() => {
         if (isAuthenticated) {
             navigate('/')
+            toast("Login successFully", {
+                type: "success",
+                position: "bottom-center"
+            })
+            return;
         }
 
         if (error) {
