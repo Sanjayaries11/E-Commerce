@@ -1,5 +1,5 @@
 import axios from "axios"
-import { loadUserFailure, loadUserRequest, loadUserSuccess, loginFailure, loginRequest, loginSuccess, logoutFailure, logoutSuccess, registerFailure, registerRequest, registerSuccess } from "../slices/authSlice"
+import { loadUserFailure, loadUserRequest, loadUserSuccess, loginFailure, loginRequest, loginSuccess, logoutFailure, logoutSuccess, registerFailure, registerRequest, registerSuccess, updateProfileFailure, updateProfileRequest, updateProfileSuccess } from "../slices/authSlice"
 //for login
 export const login = (email, password) => async (dispatch) => {
     try {
@@ -48,6 +48,26 @@ export const logout = () => async (dispatch) => {
         dispatch(logoutSuccess())
     } catch (error) {
         dispatch(logoutFailure())
+    }
+}
+
+
+//for edit profile
+
+export const updateProfile = (userData) => async(dispatch) => {
+   
+    try {
+      dispatch(updateProfileRequest())
+      const  config = {
+        headers: {
+            'Content-type' : 'multipart/form-data'
+        }
+      }
+      const { data } = await axios.put(`/api/v1/update`, userData, config);
+      dispatch(updateProfileSuccess(data))
+    }
+    catch(error) {
+     dispatch(updateProfileFailure(error.response.data.message))
     }
 }
 
