@@ -20,6 +20,7 @@ export default function Header() {
       type:"success",
       position:"bottom-center"
     })
+    navigate("/login")
     return;
   }
   return (

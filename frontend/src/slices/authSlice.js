@@ -115,6 +115,30 @@ const authSlice = createSlice({
                 loading: false,
                 error: action.payload
             }
+        },
+
+
+        //for update password
+        updatePasswordRequest(state, action) {
+            return {
+                ...state,
+                loading: true,
+                isUpdated: false
+            }
+        },
+        updatePasswordSuccess(state, action) {
+            return {
+                ...state,
+                loading: false,
+                isUpdated: true
+            }
+        },
+        updatePasswordFailure(state, action) {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
         }
     }
 });
@@ -135,7 +159,10 @@ export const {
     logoutFailure,
     updateProfileRequest,
     updateProfileSuccess,
-    updateProfileFailure
+    updateProfileFailure,
+    updatePasswordRequest,
+    updatePasswordSuccess,
+    updatePasswordFailure
 } = actions;
 
 export default reducer;

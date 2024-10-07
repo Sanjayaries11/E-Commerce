@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { updateProfile } from "../../actions/userAction";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function UpdateProfile() {
 
@@ -11,6 +12,7 @@ export default function UpdateProfile() {
     const [avatar, setAvatar] = useState("");
     const [avatarPreview, setAvatarPreview] = useState("/images/default_avatar.png");
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const onChangeAvatar = (e) => {
         const reader = new FileReader;
@@ -32,6 +34,8 @@ export default function UpdateProfile() {
         formData.append('email', email)
         formData.append('avatar', avatar);
         dispatch(updateProfile(formData));
+        navigate('/myprofile');
+        
     }
     useEffect(() => {
         if (user) {

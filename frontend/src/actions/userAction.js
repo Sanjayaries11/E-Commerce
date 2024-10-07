@@ -1,5 +1,5 @@
 import axios from "axios"
-import { loadUserFailure, loadUserRequest, loadUserSuccess, loginFailure, loginRequest, loginSuccess, logoutFailure, logoutSuccess, registerFailure, registerRequest, registerSuccess, updateProfileFailure, updateProfileRequest, updateProfileSuccess } from "../slices/authSlice"
+import { loadUserFailure, loadUserRequest, loadUserSuccess, loginFailure, loginRequest, loginSuccess, logoutFailure, logoutSuccess, registerFailure, registerRequest, registerSuccess, updatePasswordFailure, updatePasswordRequest, updatePasswordSuccess, updateProfileFailure, updateProfileRequest, updateProfileSuccess } from "../slices/authSlice"
 //for login
 export const login = (email, password) => async (dispatch) => {
     try {
@@ -54,20 +54,38 @@ export const logout = () => async (dispatch) => {
 
 //for edit profile
 
-export const updateProfile = (userData) => async(dispatch) => {
-   
+export const updateProfile = (userData) => async (dispatch) => {
+
     try {
-      dispatch(updateProfileRequest())
-      const  config = {
-        headers: {
-            'Content-type' : 'multipart/form-data'
+        dispatch(updateProfileRequest())
+        const config = {
+            headers: {
+                'Content-type': 'multipart/form-data'
+            }
         }
-      }
-      const { data } = await axios.put(`/api/v1/update`, userData, config);
-      dispatch(updateProfileSuccess(data))
+        const { data } = await axios.put(`/api/v1/update`, userData, config);
+        dispatch(updateProfileSuccess(data))
     }
-    catch(error) {
-     dispatch(updateProfileFailure(error.response.data.message))
+    catch (error) {
+        dispatch(updateProfileFailure(error.response.data.message))
+    }
+}
+
+//for change password
+
+export const updatePassword = (formData) => async (dispatch) => {
+
+    try {
+        dispatch(updatePasswordRequest())
+        const config = {
+            headers: {
+                "content-type": "application/json"
+            }
+        }
+        await axios.put(`/api/v1/password/change`, formData, config);
+        dispatch(updatePasswordSuccess())
+    } catch (error) {
+        dispatch(updatePasswordFailure(error.response.data.message))
     }
 }
 
