@@ -1,3 +1,8 @@
+*::selection {
+  color: #fff;
+  background: #fa9c23;
+}
+
 html,
 body {
   font-family: 'Amazon Ember';
@@ -8,19 +13,21 @@ body {
   overflow-x: hidden;
 }
 
+
+
 /* Scroll Bar */
 
 ::-webkit-scrollbar-track {
-  background-color: #f5f5f5;
+  background-color: #000000;
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
-  background-color: #f5f5f5;
+  width: 10px;
+  background-color: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(66, 66, 66, 0.2);
+  background-color: #fa9c23;
   border: 0px;
   background-clip: padding-box;
   border-radius: 5px;
@@ -122,6 +129,7 @@ footer {
   width: 100%;
   background: #fa9d23;
 }
+
 .text-dark {
   color: #ffffff !important;
 }
@@ -205,6 +213,7 @@ footer {
   height: 80px;
   padding-left: 0;
 }
+
 .loader:after {
   content: ' ';
   display: block;
@@ -216,10 +225,12 @@ footer {
   border-color: #fa9c23 transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
+
 @keyframes lds-dual-ring {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -500,6 +511,7 @@ footer {
   top: 0;
   z-index: 10;
 }
+
 #sidebar {
   min-width: 100%;
   max-width: 100%;
@@ -507,6 +519,7 @@ footer {
   color: #fff;
   transition: all 0.3s;
 }
+
 #sidebar.active {
   margin-left: -250px;
 }
@@ -515,6 +528,7 @@ footer {
   padding: 20px;
   background: #232f3e;
 }
+
 #sidebar ul.components {
   padding: 5px 0px;
   border-bottom: 1px solid #232f3e;
@@ -527,6 +541,7 @@ footer {
   color: white;
   text-decoration: none;
 }
+
 #sidebar ul li a:hover {
   color: #232f3e;
   background: #fff;
@@ -536,14 +551,16 @@ footer {
   margin-right: 0.3rem;
 }
 
-#sidebar ul li.active > a,
+#sidebar ul li.active>a,
 a[aria-expanded='true'] {
   color: #fff;
   background: #232f3e;
 }
+
 a[data-toggle='collapse'] {
   position: relative;
 }
+
 .dropdown-toggle::after {
   display: block;
   position: absolute;

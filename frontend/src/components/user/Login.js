@@ -60,13 +60,11 @@ export default function Login() {
                                     setPassword(e.target.value)
                                 }} />
                         </div>
-                        <a href="#" className="float-right mb-4">Forgot Password?</a>
+                        <Link to='/password/forgot' className="float-right mb-4">Forgot Password?</Link>
                         <button id="login_button" type="submit" className="btn btn-block py-3"
-                            disabled={loading}
-                        >
-                            LOGIN
+                            disabled={loading}>LOGIN
                         </button>
-                        <Link to={'/register'} className="float-right mt-3">New User?</Link>
+                        <Link to='/register' className="float-right mt-3">New User?</Link>
                     </form>
                 </div>
             </div>
