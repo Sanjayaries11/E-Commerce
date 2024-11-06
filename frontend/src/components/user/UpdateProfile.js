@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from "react-redux"
 import { updateProfile } from "../../actions/userAction";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { clearUpdateProfile } from "../../slices/authSlice";
 
 export default function UpdateProfile() {
 
-    const { loading, error, user, isUpdated } = useSelector(state => state.authState);
+    const { error, user, isUpdated } = useSelector(state => state.authState);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [avatar, setAvatar] = useState("");
@@ -15,7 +16,7 @@ export default function UpdateProfile() {
     const navigate = useNavigate();
 
     const onChangeAvatar = (e) => {
-        const reader = new FileReader;
+        const reader = new FileReader();
         reader.onload = () => {
             if (reader.readyState === 2) {
                 setAvatarPreview(reader.result)
@@ -35,7 +36,7 @@ export default function UpdateProfile() {
         formData.append('avatar', avatar);
         dispatch(updateProfile(formData));
         navigate('/myprofile');
-        
+
     }
     useEffect(() => {
         if (user) {
@@ -48,7 +49,8 @@ export default function UpdateProfile() {
         if (isUpdated) {
             toast('Profile Updated SuccessFully', {
                 type: 'success',
-                position: "bottom-center"
+                position: "bottom-center",
+                onOpen: () => dispatch(clearUpdateProfile())  //it will clear unwanted toast w/o updating anything
             })
             return;
         }
@@ -59,7 +61,7 @@ export default function UpdateProfile() {
             })
             return;
         }
-    }, [user, isUpdated, error])
+    }, [user, isUpdated, error, dispatch])
     return (
         <div className="row wrapper">
             <div className="col-10 col-lg-5">

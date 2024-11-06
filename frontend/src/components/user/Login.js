@@ -34,7 +34,7 @@ export default function Login() {
             })
             return
         }
-    }, [error, isAuthenticated])
+    }, [error, isAuthenticated, navigate])
 
 
     return (

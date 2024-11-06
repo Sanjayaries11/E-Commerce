@@ -18,7 +18,7 @@ export default function Register() {
 
     const onChange = (e) => {
         if (e.target.name === 'avatar') {
-            const reader = new FileReader;  //holding the data from input which we selected as image,this is object 
+            const reader = new FileReader();  //holding the data from input which we selected as image,this is object 
             reader.onload = () => {
                 if (reader.readyState === 2) {
                     setAvatarPreview(reader.result)  //result having the result of reader
@@ -52,7 +52,7 @@ export default function Register() {
             })
             return
         }
-    }, [error, isAuthenticated])
+    }, [error, isAuthenticated, navigate])
 
 
     return (
@@ -93,7 +93,7 @@ export default function Register() {
                                     <img
                                         src={avatarPreview}
                                         className='rounded-circle'
-                                        alt='image'
+                                        alt='Avatar'
                                     />
                                 </figure>
                             </div>
