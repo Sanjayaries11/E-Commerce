@@ -67,7 +67,7 @@ export default function Cart() {
                                 <hr />
                                 <p>Subtotal:  <span className="order-summary-values">{items.reduce((acc, item) => (acc + item.quantity), 0)} (Units)</span></p>
                                 {/* reduce method used combine all the array value to single array value */}
-                                <p>Est. total: <span className="order-summary-values">{items.reduce((acc, item) => (acc + item.quantity * item.price), 0)}</span></p>
+                                <p>Est. total: <span className="order-summary-values">$ {items.reduce((acc, item) => (acc + item.quantity * item.price), 0)}</span></p>
                                 <hr />
                                 <button id="checkout_btn" className="btn btn-primary btn-block">Check out</button>
                             </div>
