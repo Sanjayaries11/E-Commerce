@@ -11,14 +11,15 @@ import { toast } from 'react-toastify';
 export default function Header() {
 
   const { isAuthenticated, user } = useSelector((state) => state.authState);
+  const { items: cartItems } = useSelector(state => state.cartState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const logoutHandler = () => {
     dispatch(logout());
     toast("Logout Successfully", {
-      type:"success",
-      position:"bottom-center"
+      type: "success",
+      position: "bottom-center"
     })
     navigate("/login")
     return;
@@ -53,8 +54,8 @@ export default function Header() {
           )
           : <Link to="/login" className="btn" id="login_btn">Login</Link>
         }
-        <span id="cart" className="ml-3">Cart</span>
-        <span className="ml-1" id="cart_count">2</span>
+        <Link to="/cart" id="cart" className="ml-3">Cart</Link>
+        <span className="ml-1" id="cart_count">{cartItems.length}</span>
       </div>
     </nav>
   )
