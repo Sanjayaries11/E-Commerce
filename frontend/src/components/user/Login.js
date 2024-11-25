@@ -3,7 +3,7 @@ import MetaData from "../layouts/MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../actions/userAction";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function Login() {
 
@@ -11,8 +11,10 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const location = useLocation()
 
     const { loading, error, isAuthenticated } = useSelector(state => state.authState);
+    const redirect = location.search ? "/" + location.search.split("=")[1] : "/"
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(login(email, password))
@@ -20,7 +22,7 @@ export default function Login() {
 
     useEffect(() => {
         if (isAuthenticated) {
-            navigate('/')
+            navigate(redirect)
             toast("Login successFully", {
                 type: "success",
                 position: "bottom-center"
