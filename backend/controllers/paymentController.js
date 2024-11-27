@@ -7,7 +7,7 @@ exports.processPayment  = catchAsyncError(async(req, res, next) => {
         currency: "usd",
         description: "TEST PAYMENT",
         metadata: { integration_check: "accept_payment"},
-        shipping: req.body.shipping
+        // shipping: req.body.shipping
     })
 
     res.status(200).json({
