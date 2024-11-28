@@ -27,7 +27,7 @@ export default function Payment() {
                 state: shippingInfo.state,
                 address: shippingInfo.address
             },
-            phoneNo: shippingInfo.phoneNo
+            phone: shippingInfo.phoneNo
         }
     }
 
