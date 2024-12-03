@@ -7,6 +7,7 @@ import { CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/re
 import axios from "axios";
 import { toast } from "react-toastify";
 import { orderCompleted } from "../../slices/cartSlice";
+import { createOrder } from "../../actions/OrderActions";
 export default function Payment() {
     const stripe = useStripe();
     const elements = useElements();
@@ -15,6 +16,7 @@ export default function Payment() {
     const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
     const { user } = useSelector(state => state.authState);
     const { items: cartItems, shippingInfo } = useSelector(state => state.cartState);
+    const { error: orderError } = useSelector(state => state.orderState);
 
     const paymentData = {
         amount: Math.round(orderInfo.totalPrice * 100),
@@ -43,17 +45,24 @@ export default function Payment() {
     }
     useEffect(() => {
         validateShipping(shippingInfo, navigate)
+        if (orderError) {
+            toast(orderError, {
+                position: "bottom-center",
+                type: "error"
+            })
+            return
+        }
     }, [])
 
     const submitHandler = async (e) => {
         e.preventDefault();
         const payButton = document.querySelector("#pay_btn");
         payButton.disabled = true;
-    
+
         try {
             const { data } = await axios.post("/api/v1/payment/process", paymentData);
             const clientSecret = data.client_secret;
-    
+
             const result = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
                     card: elements.getElement(CardNumberElement),
@@ -63,7 +72,7 @@ export default function Payment() {
                     }
                 }
             });
-    
+
             if (result.error) {
                 toast(result.error.message, {
                     type: "error",
@@ -76,7 +85,13 @@ export default function Payment() {
                         type: "success",
                         position: "bottom-center"
                     });
+
+                    order.paymentInfo = {  //after completed payment getting data to show orderDetails
+                        id: result.paymentIntent.id,
+                        status: result.paymentIntent.status
+                    }
                     dispatch(orderCompleted());
+                    dispatch(createOrder(order));
                     navigate("/order/success");
                 } else {
                     toast("Please try again!", {
@@ -95,7 +110,7 @@ export default function Payment() {
             payButton.disabled = false;
         }
     };
-    
+
     return (
         <div className="row wrapper">
             <div className="col-10 col-lg-5">
