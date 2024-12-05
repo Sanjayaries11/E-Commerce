@@ -1,34 +1,86 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const productSlice = createSlice({
-    name:'product',
+    name: 'product',
     initialState: {
-        loading:false,
-        product:{}
+        loading: false,
+        product: {},
+        isReviewSubmitted: false
     },
     reducers: {
         productRequest(state, action) {
             return {
+                ...state,
                 loading: true
             }
         },
         productSuccess(state, action) {
             return {
+                ...state,
                 loading: false,
                 product: action.payload.product
             }
         },
         productFailure(state, action) {
             return {
+                ...state,
                 loading: false,
                 error: action.payload
+            }
+        },
+        createReviewRequest(state, action) {
+            return {
+                ...state,
+                loading: true
+            }
+        },
+        createReviewSuccess(state, action) {
+            return {
+                ...state,
+                loading: false,
+                isReviewSubmitted: true
+            }
+        },
+        createReviewFailure(state, action) {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        },
+        clearReviewSubmitted(state, action) {
+            return {
+                ...state,
+                isReviewSubmitted: false
+            }
+        },
+        clearError(state, action) {
+            return {
+                ...state,
+                error: null
+            }
+        },
+        clearProduct(state, action) {
+            return {
+                ...state,
+                product: {}
             }
         }
     }
 });
 
-const { actions, reducer} = productSlice
+const { actions, reducer } = productSlice
 
-export const { productRequest, productSuccess, productFailure} = actions;
+export const {
+    productRequest,
+    productSuccess,
+    productFailure,
+    createReviewRequest,
+    createReviewSuccess,
+    createReviewFailure,
+    clearReviewSubmitted,
+    clearError,
+    clearProduct
+} = actions;
 
 export default reducer;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { productFailure, productRequest, productSuccess } from "../slices/productSlice";
+import { createReviewFailure, createReviewRequest, createReviewSuccess, productFailure, productRequest, productSuccess } from "../slices/productSlice";
 
 export const getProduct = id => async (dispatch) => {
 
@@ -13,3 +13,19 @@ export const getProduct = id => async (dispatch) => {
     }
 
 };
+
+export const createReview = reviewData => async (dispatch) => {
+    try {
+        dispatch(createReviewRequest())
+        const config = {
+            headers: {
+                "Content-type": "application/json"
+            }
+        }
+        const { data } = await axios.put(`/api/v1/review`, reviewData, config);
+        dispatch(createReviewSuccess(data))
+    }
+    catch (error) {
+        dispatch(createReviewFailure(error.response.data.message))
+    }
+}
