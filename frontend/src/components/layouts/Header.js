@@ -47,6 +47,7 @@ export default function Header() {
                 <span>{user.name}</span>
               </Dropdown.Toggle>
               <Dropdown.Menu>
+                {user.role === "admin" && <Dropdown.Item onClick={() => { navigate('/admin/dashboard') }} className='text-danger'>Dashboard</Dropdown.Item>}
                 <Dropdown.Item onClick={() => { navigate('/myprofile') }} className='text-danger'>Profile</Dropdown.Item>
                 <Dropdown.Item onClick={() => { navigate('/orders') }} className='text-danger'>My Orders</Dropdown.Item>
                 <Dropdown.Item onClick={logoutHandler} className='text-danger'>Logout</Dropdown.Item>
@@ -56,7 +57,7 @@ export default function Header() {
           : <Link to="/login" className="btn" id="login_btn">Login</Link>
         }
         <Link to="/cart" id="cart" className="ml-3">Cart</Link>
-        <span className="ml-1" id="cart_count">{cartItems.length }</span>
+        <span className="ml-1" id="cart_count">{cartItems.length}</span>
       </div>
     </nav>
   )

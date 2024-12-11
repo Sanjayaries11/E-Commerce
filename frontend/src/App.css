@@ -543,8 +543,13 @@ footer {
 }
 
 #sidebar ul li a:hover {
-  color: #232f3e;
-  background: #fff;
+  color: #fff;
+  background:  #fa9c23;
+  border-radius: 10px;
+}
+
+#sidebar ul li div.dropdown-menu a {
+  color: #000;
 }
 
 #sidebar ul li a i {
