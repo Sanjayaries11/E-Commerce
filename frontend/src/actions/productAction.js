@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createReviewFailure, createReviewRequest, createReviewSuccess, newProductFailure, newProductRequest, newProductSuccess, productFailure, productRequest, productSuccess } from "../slices/productSlice";
+import { createReviewFailure, createReviewRequest, createReviewSuccess, deleteProductfailure, deleteProductRequest, deleteProductSuccess, newProductFailure, newProductRequest, newProductSuccess, productFailure, productRequest, productSuccess } from "../slices/productSlice";
 
 export const getProduct = id => async (dispatch) => {
 
@@ -13,7 +13,7 @@ export const getProduct = id => async (dispatch) => {
     }
 
 };
-
+//for create review
 export const createReview = reviewData => async (dispatch) => {
     try {
         dispatch(createReviewRequest())
@@ -30,7 +30,7 @@ export const createReview = reviewData => async (dispatch) => {
     }
 }
 
-
+//for createnew product
 export const createNewProduct = productData => async (dispatch) => {
     try {
         dispatch(newProductRequest());
@@ -45,4 +45,16 @@ export const createNewProduct = productData => async (dispatch) => {
     catch (error) {
         dispatch(newProductFailure(error.response.data.message))
     }
-} 
+}
+
+//for delete product
+export const deleteProduct = id => async (dispatch) => {
+    try {
+        dispatch(deleteProductRequest());
+        await axios.delete(`/api/v1/admin/product/${id}`);
+        console.log(deleteProductSuccess());
+        dispatch(deleteProductSuccess());
+    } catch (error) {
+        dispatch(deleteProductfailure(error.response.data.message))
+    }
+}
