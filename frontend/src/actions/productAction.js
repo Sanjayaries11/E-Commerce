@@ -52,7 +52,7 @@ export const deleteProduct = id => async (dispatch) => {
     try {
         dispatch(deleteProductRequest());
         await axios.delete(`/api/v1/admin/product/${id}`);
-        console.log(deleteProductSuccess());
+        //console.log(deleteProductSuccess());
         dispatch(deleteProductSuccess());
     } catch (error) {
         dispatch(deleteProductfailure(error.response.data.message))
