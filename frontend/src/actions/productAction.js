@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createReviewFailure, createReviewRequest, createReviewSuccess, productFailure, productRequest, productSuccess } from "../slices/productSlice";
+import { createReviewFailure, createReviewRequest, createReviewSuccess, newProductFailure, newProductRequest, newProductSuccess, productFailure, productRequest, productSuccess } from "../slices/productSlice";
 
 export const getProduct = id => async (dispatch) => {
 
@@ -29,3 +29,20 @@ export const createReview = reviewData => async (dispatch) => {
         dispatch(createReviewFailure(error.response.data.message))
     }
 }
+
+
+export const createNewProduct = productData => async (dispatch) => {
+    try {
+        dispatch(newProductRequest());
+        const config = {
+            headers: {
+                "Content-type": "application-json"
+            }
+        }
+        const { data } = await axios.post(`/api/v1/admin/product/new`, productData, config);
+        dispatch(newProductSuccess(data))
+    }
+    catch (error) {
+        dispatch(newProductFailure(error.response.data.message))
+    }
+} 
