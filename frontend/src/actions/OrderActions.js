@@ -1,5 +1,24 @@
 import axios from "axios"
-import { createOrderFailure, createOrderRequest, createOrderSuccess, orderDetailFailure, orderDetailRequest, orderDetailSuccess, userOrdersFailure, userOrdersRequest, userOrdersSuccess } from "../slices/orderSlice";
+import {
+    adminOrderFailure,
+    adminOrderRequest,
+    adminOrderSuccess,
+    createOrderFailure,
+    createOrderRequest,
+    createOrderSuccess,
+    deleteOrderfailure,
+    deleteOrderRequest,
+    deleteOrderSuccess,
+    orderDetailFailure,
+    orderDetailRequest,
+    orderDetailSuccess,
+    updateOrderFailure,
+    updateOrderRequest,
+    updateOrderSuccess,
+    userOrdersFailure,
+    userOrdersRequest,
+    userOrdersSuccess
+} from "../slices/orderSlice";
 
 export const createOrder = order => async (dispatch) => {
     try {
@@ -34,5 +53,41 @@ export const orderDetail = id => async (dispatch) => {
     }
     catch (error) {
         dispatch(orderDetailFailure(error.response.data.message))
+    }
+}
+// get admin allorder
+
+export const adminOrders = () => async (dispatch) => {
+    try {
+        dispatch(adminOrderRequest());
+        const { data } = await axios.get(`/api/v1/admin/orders`);
+        dispatch(adminOrderSuccess(data));
+    }
+    catch (error) {
+        dispatch(adminOrderFailure(error.response.data.message));
+    }
+}
+
+//delete admin order
+export const deleteOrder = id => async (dispatch) => {
+    try {
+        dispatch(deleteOrderRequest());
+        await axios.delete(`/api/v1/admin/order/${id}`);
+        dispatch(deleteOrderSuccess());
+    }
+    catch (error) {
+        dispatch(deleteOrderfailure(error.response.data.message));
+    }
+}
+
+//update admin order
+export const updateOrder = (id, orderData) => async (dispatch) => {
+    try {
+        dispatch(updateOrderRequest());
+        const { data } = await axios.put(`/api/v1/admin/order/${id}`, orderData);
+        dispatch(updateOrderSuccess(data))
+    }
+    catch (error) {
+        dispatch(updateOrderFailure(error.response.data.message))
     }
 }
