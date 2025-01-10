@@ -1,5 +1,6 @@
 import axios from "axios"
 import { forgotPasswordFailure, forgotPasswordRequest, forgotPasswordSuccess, loadUserFailure, loadUserRequest, loadUserSuccess, loginFailure, loginRequest, loginSuccess, logoutFailure, logoutSuccess, registerFailure, registerRequest, registerSuccess, resetPasswordFailure, resetPasswordRequest, resetPasswordSuccess, updatePasswordFailure, updatePasswordRequest, updatePasswordSuccess, updateProfileFailure, updateProfileRequest, updateProfileSuccess } from "../slices/authSlice"
+import { deleteUserFailure, deleteUserRequest, deleteUserSuccess, updateUserFailure, updateUserRequest, updateUserSuccess, userFailure, userRequest, usersFailure, usersRequest, usersSucccess, userSuccess } from "../slices/usersSlices";
 //for login
 export const login = (email, password) => async (dispatch) => {
     try {
@@ -126,6 +127,64 @@ export const resetPassword = (formData, token) => async (dispatch) => {
     }
     catch (error) {
         dispatch(resetPasswordFailure(error.response.data.message));
+    }
+}
+
+
+//get all user for ADMIN
+
+export const getUsers = async (dispatch) => {
+    try {
+        dispatch(usersRequest());
+        const { data } = await axios.get(`/api/v1/admin/users`);
+        dispatch(usersSucccess(data));
+    }
+    catch (error) {
+        dispatch(usersFailure(error.response.data.message))
+    }
+}
+
+//get single user for ADMIN
+
+export const getSingleUser = (id) => async (dispatch) => {
+    try {
+        dispatch(userRequest());
+        const { data } = await axios.get(`/api/v1/admin/user/${id}`);
+        dispatch(userSuccess(data));
+    }
+    catch (error) {
+        dispatch(userFailure(error.response.data.message))
+    }
+}
+
+// delete user for ADMIN
+
+export const deleteUser = (id) => async (dispatch) => {
+    try {
+        dispatch(deleteUserRequest());
+        await axios.put(``);
+        dispatch(deleteUserSuccess());
+    }
+    catch (error) {
+        dispatch(deleteUserFailure(error.response.data.message))
+    }
+}
+
+
+//update user by ADMIN
+
+export const updateUser = (id, formData) => async (dispatch) => {
+    try {
+        dispatch(updateUserRequest());
+        const config = {
+            headers: {
+                "content-type": "application/json"
+            }
+        }
+        const { data } = await axios.put(`api/v1/admin/user/${id}`, config, formData);
+        dispatch(updateUserSuccess(data));
+    } catch (error) {
+        dispatch(updateUserFailure(error.response.data.message))
     }
 }
 
